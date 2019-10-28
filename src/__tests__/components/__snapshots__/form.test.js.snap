@@ -7,11 +7,13 @@ exports[`<Form /> renders consistently 1`] = `
 >
   <input
     id="item"
+    onChange={[Function]}
     placeholder="Add To Do List Item"
     required={true}
   />
   <input
     id="assigned-to"
+    onChange={[Function]}
     placeholder="Assigned To"
     required={true}
   />
@@ -19,12 +21,14 @@ exports[`<Form /> renders consistently 1`] = `
     id="difficulty"
     max={5}
     min={1}
+    onChange={[Function]}
     placeholder="3"
     required={true}
     type="number"
   />
   <input
     id="date"
+    onChange={[Function]}
     required={true}
     type="date"
   />

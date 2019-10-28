@@ -1,16 +1,19 @@
-# LAB - 28/29
+# LAB - 28/29/31
 
 ## React Properties
 ### Lab 28:  
 * Just an "intro" to react properties, I guess.
 ### Lab 29:  
 * More react properties, I guess.
+### Lab 31:
+* Refactor class components to be function components
+* use "useState", "useEffect", and "useReducer" to achieve this
 
 ### Author: Calvin Hall
 
 ### Links and Resources
-* [submission PR](https://github.com/Clownvin-cr-deltav-401d4/lab-28/pull/2)
-* [![Build Status](https://www.travis-ci.com/Clownvin-cr-deltav-401d4/lab-28.svg?branch=master)](https://www.travis-ci.com/Clownvin-cr-deltav-401d4/lab-28)
+* [submission PR](https://github.com/Clownvin-cr-deltav-401d4/lab-31/pull/1)
+* [![Build Status](https://www.travis-ci.com/Clownvin-cr-deltav-401d4/lab-31.svg?branch=master)](https://www.travis-ci.com/Clownvin-cr-deltav-401d4/lab-31)
 
 ## Modules
 ### Header
