@@ -1,33 +1,30 @@
 import React from 'react';
 
-class TodoItem extends React.Component {
-
-  delete = e => {
+function TodoItem(props) {
+  const deleteItem = e => {
     e.preventDefault();
-    this.props.delete(this.props.item);
+    props.delete(props.item);
   }
 
-  toggleComplete = e => {
+  const toggleComplete = e => {
     e.preventDefault();
-    this.props.toggleComplete(this.props.item);
+    props.toggleComplete(props.item);
   }
 
-  showDetails = e => {
+  const showDetails = e => {
     e.preventDefault();
-    this.props.showDetails(this.props.item);
+    props.showDetails(props.item);
   }
 
-  render() {
-    return (
-      <li className={`complete-${this.props.item.complete}`}>
-        <span id={this.props.item.id} onClick={this.toggleComplete}>
-          {this.props.item.text}
-        </span>
-        <button className="details" onClick={this.showDetails}>Details</button>
-        <button className="delete" onClick={this.delete}>Delete</button>
-      </li>
-    )
-  }
+  return (
+    <li className={`complete-${props.item.complete}`}>
+      <span id={props.item.id} onClick={toggleComplete}>
+        {props.item.text}
+      </span>
+      <button className="details" onClick={showDetails}>Details</button>
+      <button className="delete" onClick={deleteItem}>Delete</button>
+    </li>
+  )
 }
 
 export default TodoItem;

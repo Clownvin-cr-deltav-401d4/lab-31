@@ -1,15 +1,13 @@
 import React from 'react';
 
-class Header extends React.Component {
-  render() {
-    return (
-      <>
+function Header(props) {
+  return (
+    <>
       <header id="header">
-        <h2>There are {this.props.count} Items To Complete</h2>
+        <h2>There are {props.count} Items To Complete</h2>
       </header>
-      </>
-    )
-  }
+    </>
+  );
 }
 
 export default Header;

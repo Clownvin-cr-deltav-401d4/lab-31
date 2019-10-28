@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useReducer} from 'react';
 
 import Header from './components/header';
 import Form from './components/form';
@@ -9,54 +9,71 @@ import './styles/app.scss';
 
 let id = 0;
 
-class App extends React.Component {
+const initialState = {todo: [], itemToDetail: null};
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      todo: [],
-    }
+function toggleComplete(item) {
+  item.complete = !item.complete;
+  return item;
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'add':
+      state.todo.push(action.item);
+      break;
+    case 'delete':
+      state.todo = state.todo.filter(item => item.id !== action.item.id);
+      break;
+    case 'toggleComplete':
+      state.todo = state.todo.map(item => item.id === action.item.id ? toggleComplete(item) : item);
+      break;
+    case 'showDetails':
+      state.itemToDetail = action.item;
+      break;
+    case 'closeDetails':
+      state.itemToDetail = null;
+      break;
+    default:
+      console.error('Unexpected action:', action.type);
+  }
+  return {...state};
+}
+
+function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  
+  const createTodo = (text, assignedTo, difficulty, date) => {
+    dispatch({type: 'add', item: {id: id++, text, assignedTo, difficulty, date, complete: false}});
   }
 
-  createTodo = (text, assignedTo, difficulty, date) => {
-    this.setState(state => state.todo.push({id: id++, text, assignedTo, difficulty, date, complete: false}));
+  const deleteTodo = item => {
+    dispatch({type: 'delete', item});
   }
 
-  deleteTodo = todoItem => {
-    this.setState(state => state.todo = state.todo.filter(item => item.id !== todoItem.id));
+  const toggleComplete = item => {
+    dispatch({type: 'toggleComplete', item});
   }
 
-  toggleComplete = todoItem => {
-    this.setState(state => {
-      //const item = state.todo.find(item => item.id === todoItem.id);
-      todoItem.complete = !todoItem.complete;
-      return state;
-    });
+  const showDetails = item => {
+    dispatch({type: 'showDetails', item})
   }
 
-  showDetails = todoItem => {
-    this.setState(state => state.itemToDetail = todoItem);
+  const closeDetails = () => {
+    dispatch({type: 'closeDetails'});
   }
-
-  closeDetails = () => {
-    this.setState(state => delete state.itemToDetail);
-  }
-
-  render() {
-    
-    return (
-      <>
-        <Details item={this.state.itemToDetail} closeDetails={this.closeDetails}/>
-        <Header count={this.state.todo.length} />
-        <Form createTodo={this.createTodo}/>
-        <TodoList
-          todos={this.state.todo}
-          deleteTodo={this.deleteTodo}
-          toggleComplete={this.toggleComplete}
-          showDetails={this.showDetails} />
-      </>
-    );
-  }
+  console.log('Re-rendering');
+  return (
+    <>
+      <Details item={state.itemToDetail} closeDetails={closeDetails}/>
+      <Header count={state.todo.reduce((count, item) => !item.complete ? count + 1 : count, 0)} />
+      <Form createTodo={createTodo}/>
+      <TodoList
+        todos={state.todo}
+        deleteTodo={deleteTodo}
+        toggleComplete={toggleComplete}
+        showDetails={showDetails} />
+    </>
+  );
 }
 
 export default App;
